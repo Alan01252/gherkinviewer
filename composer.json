@@ -1,0 +1,8 @@
+{
+    "require": {
+        "behat/behat": "*"
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
