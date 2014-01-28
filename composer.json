@@ -1,6 +1,9 @@
 {
     "require": {
-        "behat/behat": "*"
+        "behat/behat": "*",
+        "behat/mink": "*",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*"
     },
     "config": {
         "bin-dir": "bin/"

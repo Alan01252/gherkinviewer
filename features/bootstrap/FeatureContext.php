@@ -6,6 +6,7 @@ use Behat\Behat\Context\ClosuredContextInterface,
     Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode,
     Behat\Gherkin\Node\TableNode;
+use Behat\MinkExtension\Context\MinkContext;
 
 //
 // Require 3rd-party libraries here:
@@ -17,7 +18,7 @@ use Behat\Gherkin\Node\PyStringNode,
 /**
  * Features context.
  */
-class FeatureContext extends BehatContext
+class FeatureContext extends MinkContext
 {
     /**
      * @var String the contents of a feature file
@@ -48,14 +49,6 @@ class FeatureContext extends BehatContext
 
         throw new \Exception("Unable to load feature file");
 
-    }
-
-    /**
-     * @When /^I navigate to "([^"]*)"$/
-     */
-    public function iNavigateTo($arg1)
-    {
-        throw new PendingException();
     }
 
     /**
