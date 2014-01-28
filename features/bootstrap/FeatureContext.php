@@ -63,4 +63,12 @@ class FeatureContext extends MinkContext
 
         throw new \Exception("Feature wasn't as expected");
     }
+
+    /**
+     * @Then /^I should see the word "([^"]*)" in "([^"]*)"$/
+     */
+    public function iShouldSeeTheWordIn($arg1, $arg2)
+    {
+        throw new PendingException();
+    }
 }
