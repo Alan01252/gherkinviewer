@@ -4,3 +4,4 @@ Feature: I want to display features on a web page for other people to view
     Given this file as a feature
     And I am on "/"
     Then I should see the contents of this feature
+    And the format should be the same as this

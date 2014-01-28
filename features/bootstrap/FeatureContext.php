@@ -30,8 +30,8 @@ class FeatureContext extends MinkContext
      */
     public function thisFileAsAFeature()
     {
-        $feature = file_get_contents(__DIR__ . "/../DisplayFeature.feature");
-        if ($feature !== false) {
+        $this->feature = file_get_contents(__DIR__ . "/../DisplayFeature.feature");
+        if ($this->feature !== false) {
             return true;
         }
 
@@ -45,10 +45,22 @@ class FeatureContext extends MinkContext
     public function iShouldSeeTheContentsOfThisFeature()
     {
         $result = strcmp($this->getSession()->getPage()->getContent(), $this->feature);
-        if ($result === false) {
+        if ($result === 0) {
             throw new \Exception("Contents of page do not match feature");
         }
 
         return true;
+    }
+
+    /**
+     * @Given /^the format should be the same as this$/
+     */
+    public function theFormatShouldBeTheSameAsThis()
+    {
+        if (nl2br($this->feature) === $this->getSession()->getPage()->getContent()) {
+            return true;
+        }
+
+        throw new \Exception("Feature wasn't as expected");
     }
 }
