@@ -2,11 +2,15 @@
     "require": {
         "silex/silex": "*",
         "behat/behat": "*",
+        "behat/gherkin": "*",
         "behat/mink": "*",
         "behat/mink-extension": "*",
         "behat/mink-goutte-driver": "*"
     },
     "config": {
         "bin-dir": "bin/"
+    },
+    "autoload": {
+        "psr-4": {"GherkinViewer\\": "src/"}
     }
 }
