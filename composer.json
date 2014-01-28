@@ -1,5 +1,6 @@
 {
     "require": {
+        "silex/silex": "*",
         "behat/behat": "*",
         "behat/mink": "*",
         "behat/mink-extension": "*",

@@ -25,18 +25,6 @@ class FeatureContext extends MinkContext
      */
     private $feature;
 
-
-    /**
-     * Initializes context.
-     * Every scenario gets its own context object.
-     *
-     * @param array $parameters context parameters (set them up through behat.yml)
-     */
-    public function __construct(array $parameters)
-    {
-        // Initialize your context here
-    }
-
     /**
      * @Given /^this file as a feature$/
      */
@@ -56,6 +44,11 @@ class FeatureContext extends MinkContext
      */
     public function iShouldSeeTheContentsOfThisFeature()
     {
-        throw new PendingException();
+        $result = strcmp($this->getSession()->getPage()->getContent(), $this->feature);
+        if ($result === false) {
+            throw new \Exception("Contents of page do not match feature");
+        }
+
+        return true;
     }
 }
