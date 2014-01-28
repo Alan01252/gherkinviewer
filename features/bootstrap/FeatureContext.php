@@ -20,6 +20,12 @@ use Behat\Gherkin\Node\PyStringNode,
 class FeatureContext extends BehatContext
 {
     /**
+     * @var String the contents of a feature file
+     */
+    private $feature;
+
+
+    /**
      * Initializes context.
      * Every scenario gets its own context object.
      *
@@ -35,7 +41,13 @@ class FeatureContext extends BehatContext
      */
     public function thisFileAsAFeature()
     {
-        throw new PendingException();
+        $feature = file_get_contents(__DIR__ . "/../DisplayFeature.feature");
+        if ($feature !== false) {
+            return true;
+        }
+
+        throw new \Exception("Unable to load feature file");
+
     }
 
     /**
