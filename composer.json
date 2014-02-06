@@ -14,5 +14,7 @@
     },
     "autoload": {
         "psr-4": {"GherkinViewer\\": "src/"}
-    }
+    },
+    "minimum-stability": "dev"
+
 }
