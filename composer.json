@@ -5,7 +5,9 @@
         "behat/gherkin": "*",
         "behat/mink": "*",
         "behat/mink-extension": "*",
-        "behat/mink-goutte-driver": "*"
+        "behat/mink-goutte-driver": "*",
+        "twig/twig": "1.15.*@dev",
+        "twbs/bootstrap": "3.0.*@dev"
     },
     "config": {
         "bin-dir": "bin/"

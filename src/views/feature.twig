@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Feature</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-8">
+            <p class="lead">{{ feature.title }}</p>
+        </div>
+    </div>
+
+    {% include 'scenario.twig' with {'scenario': feature.background} %}
+
+    {% for scenario in feature.scenarios %}
+        {% include 'scenario.twig' with {'scenario': scenario} %}
+    {% endfor %}
+</div>
+</html>
