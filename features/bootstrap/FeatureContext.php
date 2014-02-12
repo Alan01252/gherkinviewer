@@ -71,4 +71,117 @@ class FeatureContext extends MinkContext
     {
         throw new PendingException();
     }
+
+    /**
+     * @Given /^I should see$/
+     */
+    public function iShouldSee(PyStringNode $string)
+    {
+        $content = $this->getSession()->getPage()->getContent();
+        $lines = $string->getLines();
+        $count = count($lines);
+
+        $found = 0;
+        foreach ($lines as $line) {
+            if (strstr($content, $line) !== false) {
+                $found++;
+            }
+        }
+
+        if ($found === $count) {
+            return true;
+        }
+
+        throw new \Exception("Pytext was not found");
+    }
+
+
+    /**
+     * @Then /^I should see a table which looks like$/
+     */
+    public function iShouldSeeATableWhichLooksLike(TableNode $table)
+    {
+        $DOM = new DOMDocument;
+        $DOM->loadHTML($this->getSession()->getPage()->getContent());
+
+        $domTables = $DOM->getElementsByTagName('table');
+        foreach($domTables as $domTable) {
+            $foundTable = $this->domTableToHash($domTable);
+
+            if($this->diffMulti($foundTable, $table->getHash())) {
+                return true;
+            }
+
+        }
+
+        throw new \Exception("Unable to find matching table");
+    }
+
+    private function diffMulti($array1, $array2) {
+
+        foreach($array1 as $key => $val) {
+            if(isset($array2[$key])){
+                if(is_array($val)  && is_array($array2[$key])){
+                    return $this->diffMulti($val, $array2[$key]);
+                }
+            } else {
+               return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Converts DOM Table to Hash to allow us to do an easy comparison check
+     *
+     * @param $table
+     * @return array
+     */
+    private function domTableToHash($table)
+    {
+
+        $hash = [];
+        $headers = [];
+        foreach ($table->getElementsByTagName('th') as $th) {
+             $headers[] = $th->nodeValue;
+        }
+
+        $headersCount = count($headers);
+
+        $i = 0;
+        $headerKey = 1;
+
+        foreach ($table->getElementsByTagName('td') as $td) {
+
+            $hash[$i][$headers[$headerKey -1]] = $td->nodeValue;
+
+            if($headerKey == $headersCount) {
+                $i++;
+                $headerKey = 1;
+            } else {
+                $headerKey++;
+            }
+        }
+
+        return $hash;
+
+    }
+
+    /**
+     * @Then /^I should see a table which contains "([^"]*)" "([^"]*)"$/
+     */
+    public function iShouldSeeATableWhichContains($arg1, $arg2)
+    {
+        $DOM = new DOMDocument;
+        $DOM->loadHTML($this->getSession()->getPage()->getContent());
+        $xpath = new DOMXPath($DOM);
+
+        if ($xpath->query("//td[text()='$arg1']")->length >= 1 && $xpath->query("//td[text()='$arg2']")->length >= 1) {
+            return true;
+        }
+
+        throw new Exception("Unable to find td with matching content");
+    }
+
 }

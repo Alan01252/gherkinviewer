@@ -12,15 +12,21 @@ Feature: I want to display features on a web page for other people to view
     As well as this text.
     """
 
-  Scenario Outline: I want to easily see what's a keyword and what's not
-    Then I should see the word <word> in <colour>
+  Scenario: I want to see a scenario with a table
+    Then I should see a table which looks like
+    | word             | colour | thing |
+    | Background       | blue   | red   |
+    | Background       | blue   | red   |
+
+  Scenario Outline: I want to see a scenario outline with a table
+    Then I should see a table which contains "<word>" "<colour>"
   Examples:
     | word             | colour |
     | Background       | blue   |
-    | Feature          | blue   |
-    | Scenario         | blue   |
-    | Scenario Outline | blue   |
-    | Given            | blue   |
-    | And              | blue   |
-    | Then             | blue   |
-    | Examples         | blue   |
+    | Feature          | red    |
+    | Scenario         | green  |
+    | Scenario Outline | orange |
+    | Given            | yellow |
+    | And              | white  |
+    | Then             | black  |
+    | Examples         | brown  |
