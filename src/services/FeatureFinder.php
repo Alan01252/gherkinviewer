@@ -30,9 +30,14 @@ class FeatureFinder
         $this->parser = $parser;
     }
 
+    private function findFilesInFolder()
+    {
+        return glob($this->directory . '/*.{feature}', GLOB_BRACE);
+    }
+
     public function findByTitle($featureTitle)
     {
-        $files = glob($this->directory . '/*.{feature}', GLOB_BRACE);
+        $files = $this->findFilesInFolder();
         foreach ($files as $file) {
             $feature = $this->parser->parseFeature(file_get_contents($file));
             $title = $feature->getTitle();
@@ -44,4 +49,15 @@ class FeatureFinder
         throw new FeatureNotFoundException("Feature {$featureTitle} not found");
     }
 
+    public function findAllFeatureTitles()
+    {
+        $features = [];
+
+        $files = $this->findFilesInFolder();
+        foreach ($files as $file) {
+            $features[] = $this->parser->parseFeature(file_get_contents($file))->getTitle();
+        }
+
+        return $features;
+    }
 }

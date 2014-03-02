@@ -1,5 +1,4 @@
 <?php
-use GherkinViewer\services\FeatureExtractor;
 use GherkinViewer\services\FeatureFinder;
 use GherkinViewer\services\GherkinParser;
 
@@ -20,19 +19,14 @@ $app['GherkinParser'] = function () {
     return new GherkinParser();
 };
 
-$app['FeatureExtractor'] = function () use ($app) {
-    return new FeatureExtractor($app['config']['featureDir'], $app['GherkinParser']);
-};
-
 $app['FeatureFinder'] = function () use ($app) {
     return new FeatureFinder($app['config']['featureDir'], $app['GherkinParser']);
 };
 
-
 $app->get('/features', function () use ($app) {
 
     return $app['twig']->render('features.twig', [
-            'features' => $app['FeatureExtractor']->getFeatures()
+            'features' => $app['FeatureFinder']->findAllFeatureTitles()
         ]
     );
 });
@@ -46,4 +40,3 @@ $app->get('/feature/{featureTitle}', function ($featureTitle) use ($app) {
 });
 
 $app->run();
-
