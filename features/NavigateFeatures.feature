@@ -10,5 +10,4 @@ Feature: Display list of features to allow navigation between features
   Scenario: I am a customer and I want to view a specific feature
     Given I am on "/features"
     And I follow "Display list of features to allow navigation between features"
-    Then I should be on "/feature/Display list of features to allow navigation between features/"
-    And I should see this feature
+    Then I should be on "/feature/Display list of features to allow navigation between features"
