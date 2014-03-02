@@ -26,6 +26,11 @@ class FeatureContext extends MinkContext
     private $feature;
 
     /**
+     * @var The folder containing the features
+     */
+    private $featureFolder;
+
+    /**
      * @Given /^this file as a feature$/
      */
     public function thisFileAsAFeature()
@@ -105,10 +110,10 @@ class FeatureContext extends MinkContext
         $DOM->loadHTML($this->getSession()->getPage()->getContent());
 
         $domTables = $DOM->getElementsByTagName('table');
-        foreach($domTables as $domTable) {
+        foreach ($domTables as $domTable) {
             $foundTable = $this->domTableToHash($domTable);
 
-            if($this->diffMulti($foundTable, $table->getHash())) {
+            if ($this->diffMulti($foundTable, $table->getHash())) {
                 return true;
             }
 
@@ -117,15 +122,16 @@ class FeatureContext extends MinkContext
         throw new \Exception("Unable to find matching table");
     }
 
-    private function diffMulti($array1, $array2) {
+    private function diffMulti($array1, $array2)
+    {
 
-        foreach($array1 as $key => $val) {
-            if(isset($array2[$key])){
-                if(is_array($val)  && is_array($array2[$key])){
+        foreach ($array1 as $key => $val) {
+            if (isset($array2[$key])) {
+                if (is_array($val) && is_array($array2[$key])) {
                     return $this->diffMulti($val, $array2[$key]);
                 }
             } else {
-               return false;
+                return false;
             }
         }
 
@@ -144,7 +150,7 @@ class FeatureContext extends MinkContext
         $hash = [];
         $headers = [];
         foreach ($table->getElementsByTagName('th') as $th) {
-             $headers[] = $th->nodeValue;
+            $headers[] = $th->nodeValue;
         }
 
         $headersCount = count($headers);
@@ -154,9 +160,9 @@ class FeatureContext extends MinkContext
 
         foreach ($table->getElementsByTagName('td') as $td) {
 
-            $hash[$i][$headers[$headerKey -1]] = $td->nodeValue;
+            $hash[$i][$headers[$headerKey - 1]] = $td->nodeValue;
 
-            if($headerKey == $headersCount) {
+            if ($headerKey == $headersCount) {
                 $i++;
                 $headerKey = 1;
             } else {
@@ -182,6 +188,39 @@ class FeatureContext extends MinkContext
         }
 
         throw new Exception("Unable to find td with matching content");
+    }
+
+    /**
+     * @Given /^a directory that has a bunch of features$/
+     */
+    public function aDirectoryThatHasABunchOfFeatures2()
+    {
+        $this->featureFolder = __DIR__ . "/../";
+    }
+
+
+    /**
+     * @Then /^I should see the title of every feature in the features directory$/
+     */
+    public function iShouldSeeTheTitleOfEveryFeatureInTheFeaturesDirectory()
+    {
+        $files = glob($this->featureFolder . '*.{feature}', GLOB_BRACE);
+        foreach ($files as $file) {
+            $contents = file($file);
+            $feature = trim(str_replace('Feature:', '', preg_grep('/^Feature/', $contents)[0]));
+
+            if (strstr($this->getSession()->getPage()->getContent(), $feature) === false) {
+                throw new \Exception("Feature not found on feature list");
+            }
+        }
+    }
+
+    /**
+     * @Given /^I should see this feature$/
+     */
+    public function iShouldSeeThisFeature()
+    {
+        throw new PendingException();
     }
 
 }
