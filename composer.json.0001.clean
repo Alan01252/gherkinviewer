@@ -1,7 +1,7 @@
 {
     "require": {
         "silex/silex": "*",
-        "behat/behat": "2.5.2",
+        "behat/behat": "*",
         "behat/gherkin": "*",
         "behat/mink": "*",
         "behat/mink-extension": "*",
