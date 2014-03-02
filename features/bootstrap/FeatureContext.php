@@ -215,12 +215,4 @@ class FeatureContext extends MinkContext
         }
     }
 
-    /**
-     * @Given /^I should see this feature$/
-     */
-    public function iShouldSeeThisFeature()
-    {
-        throw new PendingException();
-    }
-
 }
