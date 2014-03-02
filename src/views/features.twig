@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>Features</h3>
+        </div>
+    </div>
+    {% for feature in features %}
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8">
+                <p class="lead">{{ feature}}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</html>
