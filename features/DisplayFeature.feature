@@ -2,7 +2,7 @@ Feature: I want to display features on a web page for other people to view
 
   Background: I've navigated to a page which displays features
     Given this file as a feature
-    And I am on "/"
+    And I am on "/feature/I want to display features on a web page for other people to view"
 
   Scenario: I want to see a scenario with some text
     Then I should see the contents of this feature
