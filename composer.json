@@ -1,8 +1,20 @@
 {
     "require": {
-        "behat/behat": "*"
+        "silex/silex": "*",
+        "behat/behat": "2.5.2",
+        "behat/gherkin": "*",
+        "behat/mink": "*",
+        "behat/mink-extension": "*",
+        "behat/mink-goutte-driver": "*",
+        "twig/twig": "1.15.*@dev",
+        "twbs/bootstrap": "3.0.*@dev"
     },
     "config": {
         "bin-dir": "bin/"
-    }
+    },
+    "autoload": {
+        "psr-4": {"GherkinViewer\\": "src/"}
+    },
+    "minimum-stability": "dev"
+
 }

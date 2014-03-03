@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        <b>{{ table.keyword }}</b>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        <table class="table table-hover">
+
+            {% for row in table.rows|slice(0,1) %}
+                <thead>
+                {% for column in row %}
+                    <th>{{ column }}</th>
+                {% endfor %}
+                </thead>
+            {% endfor %}
+
+            <tbody>
+            {% for row in table.rows|slice(1) %}
+                <tr>
+                    {% for column in row %}
+                        <td>{{ column }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
